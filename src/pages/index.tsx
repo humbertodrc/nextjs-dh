@@ -3,6 +3,7 @@ import Image from "next/image";
 import {Inter} from "next/font/google";
 import styles from "@/styles/Home.module.css";
 import {useEffect, useState} from "react";
+import { Card } from '@/components/Card';
 
 const inter = Inter({subsets: ["latin"]});
 
@@ -21,7 +22,7 @@ export default function Home() {
 	useEffect(() => {
 		fetch("https://amiiboapi.com/api/amiibo/")
 			.then((res) => res.json())
-			.then((data) => setData(data.amiibo.slice(0, 20)));
+			.then((data) => setData(data.amiibo.slice(0, 80)));
 	}, []);
 
 	return (
@@ -36,17 +37,7 @@ export default function Home() {
 				<h1>Next</h1>
 				<div className={styles.grid}>
 					{data.map((item) => (
-						<div key={item.tail} className={styles.card}>
-							<Image
-								src={item.image}
-								alt={item.name}
-								width={200}
-								height={200}
-								priority={true}
-							/>
-							<h3>{item.character}</h3>
-							<p>{item.amiiboSeries}</p>
-						</div>
+						<Card key={item.tail} item={item} />
 					))}
 				</div>
 			</main>

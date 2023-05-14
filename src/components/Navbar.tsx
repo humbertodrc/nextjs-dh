@@ -50,8 +50,8 @@ export const Navbar = () => {
 				</li>
 				<li>
 					<select onChange={chacgeLanguage} name="idioma" id="idioma">
+					<option value="es">Español</option>
 						<option value="en">English</option>
-						<option value="es">Español</option>
 						<option value="pt">Português</option>
 					</select>
 				</li>

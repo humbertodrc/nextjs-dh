@@ -1,24 +1,24 @@
-import Image from "next/image";
-import { useRouter } from 'next/router';
-import React, { FC } from "react";
 import styles from "@/styles/Home.module.css";
+import Image from "next/image";
+import {useRouter} from "next/router";
+import {FC} from "react";
 
 interface Props {
-  item: {
-    image: string;
-    name: string;
-    character: string;
-    amiiboSeries: string;
-  };
+	item: {
+		image: string;
+		name: string;
+		character: string;
+		amiiboSeries: string;
+		tail: string;
+	};
 }
 
-export const Card: FC<Props> = ({ item }) => {
-  
-  const router = useRouter();
+export const Card: FC<Props> = ({item}) => {
+	const router = useRouter();
 
-  const handleClick = () => {
-    router.push(`/product/${item.name}`);
-  }
+	const handleClick = () => {
+		router.push(`/product/${item.tail}`);
+	};
 
 	return (
 		<div className={styles.card} onClick={handleClick}>

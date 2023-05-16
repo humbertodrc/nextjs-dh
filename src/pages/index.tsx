@@ -1,27 +1,23 @@
 import {Card} from "@/components/Card";
+import { Character } from '@/interface';
 import homeContentEN from "@/lang/en/home";
-import homeContent from "@/lang/en/home";
 import homeContentES from "@/lang/es/home";
 import homeContentPT from "@/lang/pt/home";
 import styles from "@/styles/Home.module.css";
+import { NextPage } from 'next';
 import {Inter} from "next/font/google";
 import Head from "next/head";
 import { useRouter } from 'next/router';
 import {useEffect, useState} from "react";
 
-const inter = Inter({subsets: ["latin"]});
+const inter = Inter({ subsets: ["latin"] });
 
-interface Character {
-	amiiboSeries: string;
-	character: string;
-	gameSeries: string;
-	image: string;
-	name: string;
-	tail: string;
+interface Props {
+	data: Character[];
 }
 
-export default function Home() {
-	const [data, setData] = useState<Character[]>([]);
+const Home: NextPage<Props> = ({data}) => {
+	// const [data, setData] = useState<Character[]>([]);
 
 	// Traducciones
 	const router = useRouter();
@@ -33,11 +29,11 @@ export default function Home() {
 			? homeContentES
 			: homeContentPT;
 
-	useEffect(() => {
-		fetch("https://amiiboapi.com/api/amiibo/")
-			.then((res) => res.json())
-			.then((data) => setData(data.amiibo.slice(0, 50)));
-	}, []);
+	// useEffect(() => {
+	// 	fetch("https://amiiboapi.com/api/amiibo/")
+	// 		.then((res) => res.json())
+	// 		.then((data) => setData(data.amiibo.slice(0, 50)));
+	// }, []);
 
 	return (
 		<>
@@ -62,3 +58,18 @@ export default function Home() {
 		</>
 	);
 }
+
+export const getStaticProps = async () => {
+
+	const characters = await fetch("https://amiiboapi.com/api/amiibo/")
+	const resp = await characters.json();
+	const data = resp.amiibo.slice(0, 50);
+
+	return {
+		props: {
+			data
+		}
+	}
+}
+
+export default Home;

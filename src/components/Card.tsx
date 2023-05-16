@@ -2,14 +2,10 @@ import Image from "next/image";
 import { useRouter } from 'next/router';
 import React, { FC } from "react";
 import styles from "@/styles/Home.module.css";
+import { Character } from '@/interface';
 
 interface Props {
-  item: {
-    image: string;
-    name: string;
-    character: string;
-    amiiboSeries: string;
-  };
+  item: Character;
 }
 
 export const Card: FC<Props> = ({ item }) => {
@@ -17,7 +13,7 @@ export const Card: FC<Props> = ({ item }) => {
   const router = useRouter();
 
   const handleClick = () => {
-    router.push(`/product/${item.name}`);
+    router.push(`/product/${item.tail}`);
   }
 
 	return (

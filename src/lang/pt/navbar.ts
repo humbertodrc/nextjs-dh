@@ -1,6 +1,6 @@
 const menuContentPT = {
   home: 'Início',
-  about: 'Sobre',
+  series: 'Séries',
   contact: 'Contato',
   blog: 'Blog',
 }

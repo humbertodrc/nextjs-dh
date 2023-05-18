@@ -1,6 +1,6 @@
 const menuContentEn = {
   home: 'Home',
-  about: 'About',
+  series: 'Series',
   contact: 'Contact',
   blog: 'Blog',
 }

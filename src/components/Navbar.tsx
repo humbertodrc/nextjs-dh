@@ -40,7 +40,7 @@ export const Navbar = () => {
 					<Link href="/">{content.home}</Link>
 				</li>
 				<li>
-					<Link href="/about">{content.about}</Link>
+					<Link href="/series">{content.series}</Link>
 				</li>
 				<li>
 					<Link href="/contact">{content.contact}</Link>

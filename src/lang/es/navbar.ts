@@ -1,6 +1,6 @@
 const menuContentEs = {
   home: 'Inicio',
-  about: 'Sobre mí',
+  series: 'Series',
   contact: 'Contacto',
   blog: 'Blog',
 }

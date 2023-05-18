@@ -1,13 +1,14 @@
 import { Card } from "@/components/Card";
 import { Character } from "@/interface";
-import { NextPage } from "next";
+import { NextPage } from 'next';
 import Head from "next/head";
 
 interface Props {
-	item: Character;
+	item: Character
 }
 
 const Product: NextPage<Props> = ({item}) => {
+
 	return (
 		<>
 			<Head>
@@ -22,7 +23,7 @@ const Product: NextPage<Props> = ({item}) => {
 			</main>
 		</>
 	);
-};
+}
 
 export const getStaticPaths = async () => {
 	const characters = await fetch("https://amiiboapi.com/api/amiibo/");
@@ -33,13 +34,13 @@ export const getStaticPaths = async () => {
 
 	return {
 		paths: paths,
-		fallback: "blocking",
+		fallback: 'blocking',
 	};
 };
 
 export const getStaticProps = async ({params}: any) => {
-	const {id} = params;
-
+	const { id } = params;
+	
 	const character = await fetch(`https://amiiboapi.com/api/amiibo/?tail=${id}`);
 	const resp = await character.json();
 
@@ -47,7 +48,7 @@ export const getStaticProps = async ({params}: any) => {
 		props: {
 			item: resp.amiibo[0],
 		},
-		revalidate: 86400, // 24 horas
+		revalidate: 86400 // 24 horas
 	};
 };
 

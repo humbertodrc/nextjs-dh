@@ -1,21 +1,13 @@
+import { Card } from "@/components/Card";
+import { Character } from "@/interface";
+import { NextPage } from "next";
 import Head from "next/head";
-import {useRouter} from "next/router";
-import styles from "@/styles/Home.module.css";
-import {useEffect, useState} from "react";
-import { Card } from '@/components/Card';
 
-export default function Product() {
+interface Props {
+	item: Character;
+}
 
-  const [items, setItems] = useState([])
-
-	const router = useRouter();
-
-	useEffect(() => {
-		fetch(`https://amiiboapi.com/api/amiibo/?name=${router.query.id}`)
-			.then((res) => res.json())
-			.then((data) => setItems(data.amiibo));
-	}, []);
-
+const Product: NextPage<Props> = ({item}) => {
 	return (
 		<>
 			<Head>
@@ -24,13 +16,39 @@ export default function Product() {
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
-			<main className={`${styles.main}`}>
-        <h1>Product</h1>
-        {items.map((item, index) => (
-						<Card key={index} item={item} />
-					))}
+			<main>
+				<h1>Product</h1>
+				<Card key={item.tail} item={item} />
 			</main>
 		</>
 	);
-}
+};
 
+export const getStaticPaths = async () => {
+	const characters = await fetch("https://amiiboapi.com/api/amiibo/");
+	const resp = await characters.json();
+	const data = resp.amiibo.slice(0, 50);
+
+	const paths = data.map((item: Character) => ({params: {id: item.tail}}));
+
+	return {
+		paths: paths,
+		fallback: "blocking",
+	};
+};
+
+export const getStaticProps = async ({params}: any) => {
+	const {id} = params;
+
+	const character = await fetch(`https://amiiboapi.com/api/amiibo/?tail=${id}`);
+	const resp = await character.json();
+
+	return {
+		props: {
+			item: resp.amiibo[0],
+		},
+		revalidate: 86400, // 24 horas
+	};
+};
+
+export default Product;

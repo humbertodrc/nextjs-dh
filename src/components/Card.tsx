@@ -8,7 +8,8 @@ interface Props {
     image: string;
     name: string;
     character: string;
-    amiiboSeries: string;
+		amiiboSeries: string;
+		tail: string;
   };
 }
 
@@ -17,7 +18,7 @@ export const Card: FC<Props> = ({ item }) => {
   const router = useRouter();
 
   const handleClick = () => {
-    router.push(`/product/${item.name}`);
+    router.push(`/product/${item.tail}`);
   }
 
 	return (

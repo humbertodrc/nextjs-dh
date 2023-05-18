@@ -1,4 +1,5 @@
 import { Card } from "@/components/Card";
+import { Layout } from '@/components/Layout';
 import { Character } from '@/interface';
 import homeContentEN from "@/lang/en/home";
 import homeContentES from "@/lang/es/home";
@@ -6,7 +7,6 @@ import homeContentPT from "@/lang/pt/home";
 import styles from "@/styles/Home.module.css";
 import { NextPage } from 'next';
 import { Inter } from "next/font/google";
-import Head from "next/head";
 import { useRouter } from 'next/router';
 
 const inter = Inter({subsets: ["latin"]});
@@ -29,17 +29,7 @@ const Home: NextPage<Props> = ({data}) => {
 
 
 	return (
-		<>
-			<Head>
-				<title>Ecommerce DH</title>
-				<meta name="description" content="Ecommerce De Practica" />
-				<meta
-					name="keywords"
-					content="venta de figuras de Marios, videjuegos, zelda"
-				></meta>
-				<meta name="viewport" content="width=device-width, initial-scale=1" />
-				<link rel="icon" href="/favicon.ico" />
-			</Head>
+		<Layout title="Ecommerce DH">
 			<div>
 				<h1>{content.title}</h1>
 				<div className={styles.grid}>
@@ -48,7 +38,7 @@ const Home: NextPage<Props> = ({data}) => {
 					))}
 				</div>
 			</div>
-		</>
+		</Layout>
 	);
 }
 
